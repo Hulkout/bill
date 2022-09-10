@@ -5,17 +5,14 @@
 </template>
 
 <style lang="scss">
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body{//默认行高
-    line-height: 1.5;
-  }
-  a{
-    //取消下划线
-    text-decoration: none;
-    color: inherit;
-  }
+@import "~@/assets/style/reset.scss";
+@import "~@/assets/style/helper.scss";
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;//默认字体颜色，这个黑色柔和一些
+  line-height: 1.5;
+  font-family: $font-kai;
+}
 </style>
