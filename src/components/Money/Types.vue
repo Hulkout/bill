@@ -1,28 +1,19 @@
 <template>
-<Layout class-prefix="layout">
-
-<NumberPad></NumberPad>
-<Types></Types>
-<Notes></Notes>
-<Tags/>
-
-</Layout>
+  <div>
+    <ul class="types">
+      <li class="selected">支出</li>
+      <li>收入</li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
-
-import NumberPad from '@/components/Money/NumberPad.vue';
-import Types from '@/components/Money/Types.vue';
-import Notes from '@/components/Money/Notes.vue';
-import Tags from '@/components/Money/Tags.vue';
 export default {
-  name: 'Money',
-  components: {Tags, Notes, Types, NumberPad},
+  name: 'Types'
 };
 </script>
 
 <style lang="scss" scoped>
-
 .types{
   display: flex;
   background: #c4c4c4;
@@ -50,14 +41,5 @@ export default {
 
     }
   }
-}
-
-
-</style>
-
-<style lang="scss">
-.layout-content{
-  display: flex;
-  flex-direction: column-reverse;
 }
 </style>
