@@ -7,3 +7,21 @@ $font-song: Georgia, "Nimbus Roman No9 L", "Songti SC", "Noto Serif CJK SC", "So
 $color-highlight:#f00;
 
 
+//placeholder功能 ，任何引用X的都有了下面写的属性  引用 @extend %X;
+// 原理是我把选择器复制过来，而不是把下面东西复制过去 就相当于把%X替换成buttons
+%clearFix{
+  &::after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+%outerShadow{
+  box-shadow: 0 0 3px rgba(0,0,0,0.25); //外阴影
+}
+%innerShadow{
+  box-shadow: inset 0 -3px 3px -3px fade-out(black,0.5),//下阴影
+  inset 0 3px 3px -3px fade-out(black,0.5);//上阴影
+}
+//inset内阴影，x方向0 y方向往上5px 宽度5px 控制往内还是往外进入如果-5就没了,没了我再控制轴即可 背景色 半透明

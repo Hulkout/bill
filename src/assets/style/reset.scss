@@ -9,3 +9,12 @@ a{
   text-decoration: none;
   color: inherit;
 }
+ul,ol{
+  list-style: none; //去掉那个.
+}
+button,input{//我们的输入框和按钮字体是不会跟着默认设置改变的，所以让他的font继承一下
+  font: inherit;
+}
+:focus{
+  outline: none;
+}

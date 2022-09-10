@@ -12,7 +12,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #333;//默认字体颜色，这个黑色柔和一些
-  line-height: 1.5;
-  font-family: $font-kai;
+  line-height: 1.5; //行高
+  font-family: $font-kai; //字体
+  font-size: 16px; //大小
 }
 </style>
