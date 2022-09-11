@@ -5,7 +5,6 @@
 <Types></Types>
 <Notes></Notes>
 <Tags/>
-
 </Layout>
 </template>
 

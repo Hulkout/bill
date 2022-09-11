@@ -8,25 +8,8 @@
 </template>
 
 <script lang="ts">
-// export default {
-//   name: 'Types',
-//   data(){
-//     return{
-//       type:'-',// - 表示支出 +表示收入
-//     }
-//   },
-//   methods:{
-//     selectType(type){ //接收一个type(+或-) 让data中的type等于这个type  如果不是+ - 报错
-//       if (type !== '-'&& type !== '+'){
-//         throw new Error('type is unknown')
-//       }
-//       this.type = type
-//     }
-//   }
-// };
-import Vue from 'vue'
 
-import {Component} from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator'
 //上面这个库是啥呢'vue-property-decorator' ，它不是由于西写的，因为它写的比由于西的好，由于西写的叫vue-class-component(官方提供的TS支持库)
 //装饰器 Component 告诉 script 下面那个是Vue的组件，这些东西会自动被处理成data methods，不用深究
 @Component
@@ -42,7 +25,6 @@ export default class Types extends Vue{
    }
     this.type = type
   }
-
 }
 </script>
 
