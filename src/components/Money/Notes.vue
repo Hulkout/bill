@@ -1,7 +1,7 @@
 <template>
   <div>
     <label class="notes">
-      <span class="name">备注{{value }}</span>
+      <span class="name"></span>
       <input type="text" placeholder="在这里输入备注"
              v-model="value"
       >
