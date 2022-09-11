@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button>新增标签</button>
+      <button @click="create">新增标签</button>
     </div>
     <ul class="current">
       <li v-for="tag in dataSource" :key="tag" @click="toggle(tag)" :class="{selected:selectedTags.indexOf(tag)>=0}">{{ tag }}</li>
@@ -15,7 +15,7 @@ import {Component, Vue,Prop} from 'vue-property-decorator';
 @Component
 export default class Tags extends Vue{
 
-  @Prop(Array) dataSource:string[]|undefined//默认所有tags 字符串数组  前面Array是JS写法可以不写 后买你string[]是TS写法,因为是外部数据你不要给它赋值
+  @Prop(Array) readonly dataSource:string[]|undefined//默认所有tags 字符串数组  前面Array是JS写法可以不写 后买你string[]是TS写法,因为是外部数据你不要给它赋值
   selectedTags:string[]=[]  //被选中的标签 通过这个改变li的class
   toggle(tag:string){ //toggle开关
     const index = this.selectedTags.indexOf(tag)
@@ -28,6 +28,20 @@ export default class Tags extends Vue{
       }else {
         this.selectedTags.push(tag)
       }
+    }
+  }
+  create(){
+    const name = window.prompt('请输入标签名')
+    if (name === ''){
+      alert('标签名不能为空')
+    }else { //我要把他放到数据源啊
+      // if (this.dataSource){
+      //   this.dataSource.push(name!)//可以 但是理论上我们不能修改外部数据，所以我们要自觉地址这种行为 ,readyonly只能阻止你把他改为其他数组不能阻止你push
+      // } 我们触发一个更新事件,值是之前的数组 ...展开运算符 展开了再给他加一个name
+      //如果你填了name  我就把你要更新datasource的请求告诉给外部，外部可以接收这个事件 <Tags :data-source.sync="tags"  />我们给他加上.sync
+      //如果你触发了update:dataSource 这个事件 他就会把你传的这个数组 赋值给money上的data-source
+      if (this.dataSource)
+      this.$emit('update:dataSource',[...this.dataSource,name])
     }
   }
 }
