@@ -21,10 +21,12 @@
 </template>
 
 <script lang="ts">
-import {Vue,Component} from 'vue-property-decorator';
+import {Vue,Component,Prop} from 'vue-property-decorator';
 @Component
 export default class NumberPad extends Vue{
-  output = '0'
+  @Prop() readonly value!:number
+  output = this.value.toString()
+  // output = '0'  本来这样就可以 但是为了代码的统一性改用.sync 改成上面这个样子其实没必要
   inputContent(event:MouseEvent){
     const button = event.target as HTMLButtonElement
     const input = button.textContent as string //下面有报错input可能是空 但是我们知道它不可能是空所以强制指定, as string 可以用！替换，！就是把空排除
@@ -56,7 +58,7 @@ export default class NumberPad extends Vue{
     this.output = '0'
   }
   ok(){
-    this.output = '0'
+    this.$emit('update:value',this.output)
   }
 
 }
