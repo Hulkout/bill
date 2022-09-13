@@ -2,7 +2,7 @@
 <Layout class-prefix="layout">
 {{record}}
 <!--<NumberPad :value="record.amount" @update:value="onUpdateAmount"></NumberPad>-->
-  <NumberPad :value.sync="record.amount"></NumberPad>
+  <NumberPad :value.sync="record.amount" @submit="saveRecord"></NumberPad>
 <!--<Types @update:value="onUpdateType" :value="record.type"></Types>  改用下面的-->
   <Types :value.sync="record.type"></Types>
 <Notes @update:value="onUpdateNotes" ></Notes>
@@ -16,7 +16,7 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
-import {Component, Vue} from 'vue-property-decorator';
+import {Component, Vue, Watch} from 'vue-property-decorator';
 
 //在TS中声明类型
 type Record = {
@@ -30,13 +30,14 @@ type Record = {
   components:{Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue{
-  tags=['衣','食','住','行','哈哈']
+  tags=['衣','食','住','行']
   record:Record = {
     tag:'',
     notes:'',
     type:'-',
     amount:0
   }
+  recordList:Record[]= []
   onUpdateTags(value:string){
     this.record.tag = value
     console.log(value);
@@ -44,6 +45,15 @@ export default class Money extends Vue{
   onUpdateNotes(value:string){
     this.record.notes = value
     console.log(value)
+  }
+  saveRecord(){
+    const deepClone = JSON.parse(JSON.stringify(this.record))
+    this.recordList.push(deepClone)
+    console.log(this.recordList)
+  }
+  @Watch('recordList')
+  onRecordListChange(){
+    window.localStorage.setItem('recordList',JSON.stringify(this.recordList)) //只能存储字符串  通过JSON序列化 变为字符串
   }
   // onUpdateType(value:string){ 由于改用。sync所以这里就不需要了
   //   this.record.type = value
