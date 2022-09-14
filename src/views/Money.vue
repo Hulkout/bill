@@ -1,6 +1,6 @@
 <template>
 <Layout class-prefix="layout">
-{{record}}
+{{recordList}}
 <!--<NumberPad :value="record.amount" @update:value="onUpdateAmount"></NumberPad>-->
   <NumberPad :value.sync="record.amount" @submit="saveRecord"></NumberPad>
 <!--<Types @update:value="onUpdateType" :value="record.type"></Types>  改用下面的-->
@@ -24,6 +24,9 @@ type Record = {
   notes:string
   type:string //这两个type不会冲突哦 TS不是傻子
   amount:number
+  createdAT?: Date
+  //时间 除了数据类型还可以写一个类。
+  // JS中类也是构造函数，Object 数据类型中的一类Date createdTime?表示可以不存在
 }
 
 @Component({
@@ -37,7 +40,7 @@ export default class Money extends Vue{
     type:'-',
     amount:0
   }
-  recordList:Record[]= []
+  recordList:Record[]=  JSON.parse(window.localStorage.getItem('recordList')||'[]')
   onUpdateTags(value:string){
     this.record.tag = value
     console.log(value);
@@ -47,9 +50,10 @@ export default class Money extends Vue{
     console.log(value)
   }
   saveRecord(){
-    const deepClone = JSON.parse(JSON.stringify(this.record))
+    const deepClone:Record = JSON.parse(JSON.stringify(this.record))
+    deepClone.createdAT = new Date() //new Date当前时间
     this.recordList.push(deepClone)
-    console.log(this.recordList)
+
   }
   @Watch('recordList')
   onRecordListChange(){
