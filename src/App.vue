@@ -15,5 +15,6 @@
   line-height: 1.5; //行高
   font-family: $font-kai; //字体
   font-size: 16px; //大小
+  background: #f5f5f5;
 }
 </style>

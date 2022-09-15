@@ -10,13 +10,13 @@
 </template>
 
 <script lang="ts">
-
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Vue, Watch} from 'vue-property-decorator';
-import { model } from '@/model';
+import {recordListModel} from '@/models/recordListModel';
+import {tagListModel} from '@/models/tagListModel';
 //在TS中声明类型
 // type RecordItem = {
 //   tag:string
@@ -27,12 +27,15 @@ import { model } from '@/model';
 //   //时间 除了数据类型还可以写一个类。
 //   // JS中类也是构造函数，Object 数据类型中的一类Date createdTime?表示可以不存在
 // }
+const recordList = recordListModel.fetch()
+const tagList = tagListModel.fetch()
 
 @Component({
   components:{Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue{
-  tags=['衣','食','住','行']
+  // tags=['衣','食','住','行']
+  tags = tagList
   record:RecordItem = {
     tag:'',
     notes:'',
@@ -40,9 +43,9 @@ export default class Money extends Vue{
     amount:0
   }
 
-  recordList= model.fetch()
+  recordList = recordList
   //fetch返回值已经强制类型了
-  // recordList:RecordItem[]= model.fetch()
+  // recordList:RecordItem[]= recordListModel.fetch()
   //recordList:Record[]=  JSON.parse(window.localStorage.getItem('recordList')||'[]')
 
   onUpdateTags(value:string){
@@ -55,14 +58,14 @@ export default class Money extends Vue{
   }
   saveRecord(){
     // const deepClone:RecordItem = JSON.parse(JSON.stringify(this.record))
-    const deepClone:RecordItem = model.clone(this.record)
+    const deepClone:RecordItem = recordListModel.clone(this.record)
     deepClone.createdAT = new Date() //new Date当前时间
     this.recordList.push(deepClone)
   }
   @Watch('recordList')
   onRecordListChange(){
     // window.localStorage.setItem('recordList',JSON.stringify(this.recordList)) //只能存储字符串  通过JSON序列化 变为字符串
-    model.save(this.recordList)
+    recordListModel.save(this.recordList)
   }
   // onUpdateType(value:string){ 由于改用.sync所以这里就不需要了
   //   this.record.type = value
