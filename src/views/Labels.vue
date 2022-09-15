@@ -13,7 +13,7 @@
 <script lang="ts">
 import {Vue,Component}from 'vue-property-decorator';
 import {tagListModel} from '@/models/tagListModel';
-tagListModel.fetch()
+tagListModel.fetch() //先fetch就可以直接用data了
 
 @Component
 export default class Labels extends Vue{

@@ -28,14 +28,13 @@ import {tagListModel} from '@/models/tagListModel';
 //   // JS中类也是构造函数，Object 数据类型中的一类Date createdTime?表示可以不存在
 // }
 const recordList = recordListModel.fetch()
-const tagList = tagListModel.fetch()
 
 @Component({
   components:{Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue{
   // tags=['衣','食','住','行']
-  tags = tagList
+  tags = tagListModel.data
   record:RecordItem = {
     tag:'',
     notes:'',
