@@ -3,7 +3,8 @@
     <label class="formItem">
       <span class="name">{{this.fieldName }}</span>
       <input type="text" :placeholder="this.placeholder"
-             v-model="value"
+             :value="value"
+             @input="onValueChanged($event.target.value)"
       >
     </label>
   </div>
@@ -13,14 +14,14 @@
 import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
 @Component
 export default class FormItem extends Vue{
-  value = ''
+  @Prop({default:''})readonly value!:string//!不用检查是否存在了 readonly只读不要写
   @Watch('value')
   onValueChanged(value:string){
     this.$emit('update:value',value)
   }
 
   @Prop({required:true}) fieldName!:string  //必须传 加！你别烦我了不加就必须给初始值 option里写一个deft
-  @Prop({required:true}) placeholder?:string //写个问好有可能不存在
+  @Prop() placeholder?:string //写个问 有可能不存在
 }
 </script>
 
