@@ -2,7 +2,7 @@
   <Layout>
     <ol class="tags">
 <!--      包一个span经验之谈-->
-      <li v-for="tag in tags" :key = 'tag'><span>{{tag}}</span><Icon name="right"/></li>
+      <li v-for="tag in tags" :key = 'tag.id'><span>{{tag.name}}</span><Icon name="right"/></li>
     </ol>
     <div class="createTag-wrapper">
       <button class="createTag" @click="createTag">新建标签</button>
