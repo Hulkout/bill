@@ -1,13 +1,15 @@
 <template>
   <div>
-    <button class="button" ><slot></slot></button>
+    <button class="button" @click="$emit('click',$event)"><slot></slot></button>
   </div>
 </template>
 
-<script lang="js">
-export default {
-  name: 'Button'
-};
+<script lang="ts">
+import {Component, Vue} from 'vue-property-decorator';
+@Component
+export default class Button extends Vue{
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -18,9 +20,5 @@ export default {
   border-radius:4px;
   height: 35px;
   padding: 0 16px;
-  &-wrapper{ //表示他的父元素
-    text-align: center;
-    padding: 44px;
-  }
 }
 </style>

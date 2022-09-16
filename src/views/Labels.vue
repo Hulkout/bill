@@ -5,7 +5,7 @@
       <router-link class="tag" :to="`/labels/edit/${tag.id}`" v-for="tag in tags" :key = 'tag.id'><span>{{tag.name}}</span><Icon name="right"/></router-link>
     </div>
     <div class="createTag-wrapper">
-
+    <Button @click="createTag">新建标签</Button>
     </div>
   </Layout>
 </template>
@@ -13,9 +13,11 @@
 <script lang="ts">
 import {Vue,Component}from 'vue-property-decorator';
 import {tagListModel} from '@/models/tagListModel';
+import Button from '@/components/Button.vue';
 tagListModel.fetch() //先fetch就可以直接用data了
-
-@Component
+@Component({
+  components: {Button}
+})
 export default class Labels extends Vue{
   tags = tagListModel.data
   createTag(){
@@ -62,16 +64,9 @@ export default class Labels extends Vue{
   }
 }
 
-.createTag{
-  background: #767676;
-  color: white;
-  border: none;
-  border-radius:4px;
-  height: 35px;
-  padding: 0 16px;
-  &-wrapper{ //表示他的父元素
-    text-align: center;
-    padding: 44px;
-  }
-}
+
+.createTag-wrapper { //表示他的父元素
+   text-align: center;
+   padding: 44px;
+ }
 </style>

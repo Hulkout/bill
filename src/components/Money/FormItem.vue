@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label class="notes">
+    <label class="formItem">
       <span class="name">{{this.fieldName }}</span>
       <input type="text" :placeholder="this.placeholder"
              v-model="value"
@@ -25,9 +25,8 @@ export default class FormItem extends Vue{
 </script>
 
 <style lang="scss" scoped>
-.notes{
+.formItem{
   //display: block;//它默认是 inline-block
-  background: #f5f5f5;
   font-size: 14px;
   padding-left:16px;
   display: flex;
@@ -36,7 +35,7 @@ export default class FormItem extends Vue{
     padding-right:16px ;
   }
   input{
-    height:64px;//因为那一大块都要一点就能输入，所以我们要让他高一些，并且没有上下间距,height line height padding都可以做
+    height:40px;//因为那一大块都要一点就能输入，所以我们要让他高一些，并且没有上下间距,height line height padding都可以做
     flex-grow: 1; //这个就宽了 直接flex:1也行，这里需要学一下，忘了咋弄了
     background: transparent;
     border: none;
