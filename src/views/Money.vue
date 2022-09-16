@@ -4,7 +4,7 @@
   <NumberPad :value.sync="record.amount" @submit="saveRecord"></NumberPad>
 <!--<Types @update:value="onUpdateType" :value="record.type"></Types>  改用下面的-->
   <Types :value.sync="record.type"></Types>
-<Notes @update:value="onUpdateNotes" ></Notes>
+<Notes @update:value="onUpdateNotes" field-name="备注" placeholder="请在此输入备注"></Notes>
 <Tags   @update:value="onUpdateTags" :data-source.sync="tags"/>
 </Layout>
 </template>

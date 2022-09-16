@@ -1,14 +1,17 @@
 <template>
   <Layout>
-    编辑标签
+    <div><span>编辑标签</span> <Icon name="left"/></div>
+    <Notes field-name="标签名" placeholder="请输入标签名"/>
   </Layout>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import {tagListModel} from '@/models/tagListModel';
-
-@Component
+import Notes from '@/components/Money/Notes.vue';
+@Component({
+  components: {Notes}
+})
 export default class EditLabels extends Vue{
   created(){
     const id = this.$route.params.id //获取id
@@ -28,5 +31,11 @@ export default class EditLabels extends Vue{
 </script>
 
 <style lang="scss" scoped>
+div{
+  svg{
+    color: red;
+
+  }
+}
 
 </style>
