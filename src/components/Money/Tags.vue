@@ -13,6 +13,7 @@
 
 import {Component, Vue,Prop} from 'vue-property-decorator';
 import {tagListModel} from '@/models/tagListModel';
+import store from '@/store/index2';
 @Component
 export default class Tags extends Vue{
 
@@ -35,7 +36,7 @@ export default class Tags extends Vue{
   create(){
     const name = window.prompt('请输入标签名')
     if (name){
-      window.createTag(name)
+      store.createTag(name)
     }
     // if (name === ''){
     //   alert('标签名不能为空')

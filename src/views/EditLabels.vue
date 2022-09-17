@@ -18,17 +18,16 @@
 import {Component, Vue} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
+import store from '@/store/index2';
 @Component({
   components: {FormItem,Button}
 })
 export default class EditLabels extends Vue{
-  tag?: {
-    id:string
-    name:string
-  }  = undefined //tag初始值和类型写上 当created之后才能拿到tag
+  // eslint-disable-next-line no-undef
+  tag?: Tag  = undefined //tag初始值和类型写上 当created之后才能拿到tag
   created(){
     const id = this.$route.params.id //获取id
-    this.tag = window.findTag(id) //拿到tag之后展示出来
+    this.tag = store.findTag(id) //拿到tag之后展示出来
     if (!this.tag){
       //如果tag没有那就重新定向到404
       //this.$router.push('/404') push不好用 因为每次返回他都发现不存在就又跳到404卡住了
@@ -37,11 +36,11 @@ export default class EditLabels extends Vue{
   }
   updateTag(name:string){
     if (this.tag)
-    window.updateTag(this.tag.id,name)
+    store.updateTag(this.tag.id,name)
   }
   remove(){
     if (this.tag){
-      if (window.removeTag(this.tag.id)){
+      if (store.removeTag(this.tag.id)){
         this.$router.back()
       }else {
         window.alert('删除失败')

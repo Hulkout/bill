@@ -18,6 +18,7 @@ import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Vue, Watch} from 'vue-property-decorator';
 import {recordListModel} from '@/models/recordListModel';
+import store from '@/store/index2';
 //在TS中声明类型
 // type RecordItem = {
 //   tag:string
@@ -28,13 +29,13 @@ import {recordListModel} from '@/models/recordListModel';
 //   //时间 除了数据类型还可以写一个类。
 //   // JS中类也是构造函数，Object 数据类型中的一类Date createdTime?表示可以不存在
 // }
-const recordList = recordListModel.fetch()
 @Component({
   components:{Tags, FormItem, Types, NumberPad}
 })
 export default class Money extends Vue{
   // tags=['衣','食','住','行']
-  tags = window.tagList
+  tags = store.tagList
+  recordList = store.recordList
   record:RecordItem = {
     tag:'',
     notes:'',
@@ -42,14 +43,13 @@ export default class Money extends Vue{
     amount:0
   }
 
-  recordList = recordList
+
   //fetch返回值已经强制类型了
   // recordList:RecordItem[]= recordListModel.fetch()
   //recordList:Record[]=  JSON.parse(window.localStorage.getItem('recordList')||'[]')
 
   onUpdateTags(value:string){
     this.record.tag = value
-    console.log(value);
   }
   onUpdateNotes(value:string){
     this.record.notes = value
@@ -57,13 +57,13 @@ export default class Money extends Vue{
   }
   saveRecord(){
     // const deepClone:RecordItem = JSON.parse(JSON.stringify(this.record))
-    recordListModel.create(this.record)
+   store.createRecord(this.record)
   }
-  @Watch('recordList')
-  onRecordListChange(){
-    // window.localStorage.setItem('recordList',JSON.stringify(this.recordList)) //只能存储字符串  通过JSON序列化 变为字符串
-    recordListModel.save()
-  }
+  // @Watch('recordList')
+  // onRecordListChange(){
+  //   // window.localStorage.setItem('recordList',JSON.stringify(this.recordList)) //只能存储字符串  通过JSON序列化 变为字符串
+  //   recordListModel.save()
+  // }
   // onUpdateType(value:string){ 由于改用.sync所以这里就不需要了
   //   this.record.type = value
   //   console.log(value)

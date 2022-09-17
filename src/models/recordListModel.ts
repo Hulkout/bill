@@ -15,6 +15,7 @@ const recordListModel = { //写一个对象并导出
         const deepClone:RecordItem = clone(record)
         deepClone.createdAT = new Date() //new Date当前时间
         this.data.push(deepClone)
+        this.save()//创建后马上save
     }
 }
 

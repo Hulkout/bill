@@ -13,17 +13,18 @@
 <script lang="ts">
 import {Vue,Component}from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
+import store from '@/store/index2';
 // tagListModel.fetch() //先fetch就可以直接用data了
 @Component({
   components: {Button}
 })
 export default class Labels extends Vue{
-  tags = window.tagList
+  tags = store.tagList
   createTag(){
     const name = window.prompt('请输入标签名')
     // window.createTag(name,()=>{},()=>{}) 如果需要更多功能可以添加函数 成功了调第一个失败掉第二个
     if (name){
-      window.createTag(name)
+      store.createTag(name)
     }
     // if (name){
     //   try {

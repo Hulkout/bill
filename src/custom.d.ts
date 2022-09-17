@@ -18,11 +18,17 @@ type TagListModel = {
   save:()=>void //void就是没返回值
   update:(id:string,name:string)=>'success'|'not found' | 'duplicated'
   remove:(id:string) => boolean
-}
-interface Window{ //给Window加上一个属性
-  tagList:Tag[] //类型Tag数组
-  createTag:(name:string)=>void
-  removeTag:(id:string)=>boolean
-  updateTag:(id:string,name:string)=>'success'|'not found' | 'duplicated'
-  findTag:(id:string)=>Tag
-}
+ }
+// interface Window{ //给Window加上一个属性  FUCK 那我这里就没用了
+//   // store:{
+//   //   tagList:Tag[] //类型Tag数组
+//   //   createTag:(name:string)=>void
+//   //   removeTag:(id:string)=>boolean
+//   //   updateTag:(id:string,name:string)=>'success'|'not found' | 'duplicated'
+//   //   findTag:(id:string)=>Tag
+//   //
+//   //   //record
+//   //   recordList:RecordItem[]
+//   //   createRecord:(record:RecordItem)=>void
+//   // }
+// }
