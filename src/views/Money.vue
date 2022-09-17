@@ -7,7 +7,7 @@
   <div class="notes">
     <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="请在此输入备注"></FormItem>
   </div>
-<Tags   @update:value="onUpdateTags" :data-source.sync="tags"/>
+<Tags/>
 </Layout>
 </template>
 
@@ -16,8 +16,7 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
-import {Component, Vue, Watch} from 'vue-property-decorator';
-import {recordListModel} from '@/models/recordListModel';
+import {Component, Vue} from 'vue-property-decorator';
 import store from '@/store/index2';
 //在TS中声明类型
 // type RecordItem = {
@@ -34,7 +33,6 @@ import store from '@/store/index2';
 })
 export default class Money extends Vue{
   // tags=['衣','食','住','行']
-  tags = store.tagList
   recordList = store.recordList
   record:RecordItem = {
     tag:'',
@@ -48,9 +46,9 @@ export default class Money extends Vue{
   // recordList:RecordItem[]= recordListModel.fetch()
   //recordList:Record[]=  JSON.parse(window.localStorage.getItem('recordList')||'[]')
 
-  onUpdateTags(value:string){
-    this.record.tag = value
-  }
+  // onUpdateTags(value:string){
+  //   this.record.tag = value
+  // }
   onUpdateNotes(value:string){
     this.record.notes = value
     console.log(value)

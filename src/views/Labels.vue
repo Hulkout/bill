@@ -25,6 +25,8 @@ export default class Labels extends Vue{
     // window.createTag(name,()=>{},()=>{}) 如果需要更多功能可以添加函数 成功了调第一个失败掉第二个
     if (name){
       store.createTag(name)
+    }else {
+      window.alert('标签名不能为空')
     }
     // if (name){
     //   try {

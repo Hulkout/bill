@@ -4,20 +4,20 @@
       <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag.id" @click="toggle(tag)" :class="{selected:selectedTags.indexOf(tag)>=0}">{{ tag.name }}</li>
+      <li v-for="tag in tags" :key="tag.id" @click="toggle(tag)" :class="{selected:selectedTags.indexOf(tag)>=0}">{{ tag.name }}</li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
 
-import {Component, Vue,Prop} from 'vue-property-decorator';
-import {tagListModel} from '@/models/tagListModel';
+import {Component, Vue} from 'vue-property-decorator';
+
 import store from '@/store/index2';
 @Component
 export default class Tags extends Vue{
-
-  @Prop(Array) readonly dataSource:string[]|undefined//默认所有tags 字符串数组  前面Array是JS写法可以不写 后买你string[]是TS写法,因为是外部数据你不要给它赋值
+  tags = store.tagList
+  // @Prop({required:true}) readonly dataSource!:string[]//默认所有tags 字符串数组  前面Array是JS写法可以不写 后买你string[]是TS写法,因为是外部数据你不要给它赋值
   selectedTags:string[]=[]  //被选中的标签 通过这个改变li的class
   toggle(tag:string){ //toggle开关
     const index = this.selectedTags.indexOf(tag)
@@ -37,6 +37,8 @@ export default class Tags extends Vue{
     const name = window.prompt('请输入标签名')
     if (name){
       store.createTag(name)
+    }else {
+      window.alert('标签名不能为空')
     }
     // if (name === ''){
     //   alert('标签名不能为空')
