@@ -36,7 +36,7 @@ const recordList = recordListModel.fetch()
 })
 export default class Money extends Vue{
   // tags=['衣','食','住','行']
-  tags = tagListModel.data
+  tags = tagListModel.fetch()
   record:RecordItem = {
     tag:'',
     notes:'',
@@ -59,14 +59,12 @@ export default class Money extends Vue{
   }
   saveRecord(){
     // const deepClone:RecordItem = JSON.parse(JSON.stringify(this.record))
-    const deepClone:RecordItem = recordListModel.clone(this.record)
-    deepClone.createdAT = new Date() //new Date当前时间
-    this.recordList.push(deepClone)
+    recordListModel.create(this.record)
   }
   @Watch('recordList')
   onRecordListChange(){
     // window.localStorage.setItem('recordList',JSON.stringify(this.recordList)) //只能存储字符串  通过JSON序列化 变为字符串
-    recordListModel.save(this.recordList)
+    recordListModel.save()
   }
   // onUpdateType(value:string){ 由于改用.sync所以这里就不需要了
   //   this.record.type = value

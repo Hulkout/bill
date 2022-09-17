@@ -12,6 +12,7 @@
 <script lang="ts">
 
 import {Component, Vue,Prop} from 'vue-property-decorator';
+import {tagListModel} from '@/models/tagListModel';
 @Component
 export default class Tags extends Vue{
 
@@ -33,17 +34,26 @@ export default class Tags extends Vue{
   }
   create(){
     const name = window.prompt('请输入标签名')
-    if (name === ''){
-      alert('标签名不能为空')
-    }else { //我要把他放到数据源啊
+    if (name){
+      const message = tagListModel.create(name)
+      if (message === 'duplicated'){
+        window.alert('标签名重复了')
+      }else if (message==='success'){
+        window.alert('创建成功')
+      }
+    }
+    // if (name === ''){
+    //   alert('标签名不能为空')
+    // }else { //我要把他放到数据源啊
       // if (this.dataSource){
       //   this.dataSource.push(name!)//可以 但是理论上我们不能修改外部数据，所以我们要自觉地址这种行为 ,readyonly只能阻止你把他改为其他数组不能阻止你push
       // } 我们触发一个更新事件,值是之前的数组 ...展开运算符 展开了再给他加一个name
       //如果你填了name  我就把你要更新datasource的请求告诉给外部，外部可以接收这个事件 <Tags :data-source.sync="tags"  />我们给他加上.sync
       //如果你触发了update:dataSource 这个事件 他就会把你传的这个数组 赋值给money上的data-source
-      if (this.dataSource)
-      this.$emit('update:dataSource',[...this.dataSource,name])
-    }
+      // if (this.dataSource)
+      // this.$emit('update:dataSource',[...this.dataSource,name])
+
+
   }
 }
 </script>
