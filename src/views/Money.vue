@@ -18,7 +18,6 @@ import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Vue, Watch} from 'vue-property-decorator';
 import {recordListModel} from '@/models/recordListModel';
-import {tagListModel} from '@/models/tagListModel';
 //在TS中声明类型
 // type RecordItem = {
 //   tag:string

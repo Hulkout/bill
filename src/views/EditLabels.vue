@@ -16,23 +16,20 @@
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import {tagListModel} from '@/models/tagListModel';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
 @Component({
   components: {FormItem,Button}
 })
 export default class EditLabels extends Vue{
-  tag?:{id:string,name:string} = undefined //tag初始值和类型写上 当created之后才能拿到tag
+  tag?: {
+    id:string
+    name:string
+  }  = undefined //tag初始值和类型写上 当created之后才能拿到tag
   created(){
     const id = this.$route.params.id //获取id
-    tagListModel.fetch()
-    const tags = tagListModel.data //获取全部tags
-    //filter也返回数组 那他和map区别在哪 ,由于返回一个数组那我直接得到它[0]就是它
-    const tag = tags.filter(t => t.id === id)[0]
-    if (tag){
-      this.tag = tag //拿到tag之后展示出来
-    }else{
+    this.tag = window.findTag(id) //拿到tag之后展示出来
+    if (!this.tag){
       //如果tag没有那就重新定向到404
       //this.$router.push('/404') push不好用 因为每次返回他都发现不存在就又跳到404卡住了
       this.$router.replace('/404')
@@ -40,13 +37,16 @@ export default class EditLabels extends Vue{
   }
   updateTag(name:string){
     if (this.tag)
-    tagListModel.update(this.tag.id,name)
+    window.updateTag(this.tag.id,name)
   }
   remove(){
     if (this.tag){
-      if (tagListModel.remove(this.tag.id)){
+      if (window.removeTag(this.tag.id)){
         this.$router.back()
+      }else {
+        window.alert('删除失败')
       }
+
     }
 
   }

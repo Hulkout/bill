@@ -22,4 +22,7 @@ type TagListModel = {
 interface Window{ //给Window加上一个属性
   tagList:Tag[] //类型Tag数组
   createTag:(name:string)=>void
+  removeTag:(id:string)=>boolean
+  updateTag:(id:string,name:string)=>'success'|'not found' | 'duplicated'
+  findTag:(id:string)=>Tag
 }
