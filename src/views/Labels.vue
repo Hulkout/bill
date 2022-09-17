@@ -22,6 +22,10 @@ export default class Labels extends Vue{
   tags = window.tagList
   createTag(){
     const name = window.prompt('请输入标签名')
+    // window.createTag(name,()=>{},()=>{}) 如果需要更多功能可以添加函数 成功了调第一个失败掉第二个
+    if (name){
+      window.createTag(name)
+    }
     // if (name){
     //   try {
     //     tagListModel.create(name)//当用户输入之后自动保存
@@ -31,16 +35,7 @@ export default class Labels extends Vue{
     //     }
     //   }
     // }
-    if (name){
-      const message = tagListModel.create(name)
-      if (message === 'duplicated'){
-        window.alert('标签名重复了')
-      }else if (message==='success'){
-        window.alert('创建成功')
-      }
-    }
   }
-
 }
 </script>
 

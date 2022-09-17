@@ -21,4 +21,5 @@ type TagListModel = {
 }
 interface Window{ //给Window加上一个属性
   tagList:Tag[] //类型Tag数组
+  createTag:(name:string)=>void
 }
