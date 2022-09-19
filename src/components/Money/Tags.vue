@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="create">新增标签</button>
+      <button @click="createTag">新增标签</button>
     </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)" :class="{selected:selectedTags.indexOf(tag)>=0}">{{ tag.name }}</li>
@@ -11,7 +11,9 @@
 
 <script lang="ts">
 
-import {Component, Vue} from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
+import {Component} from 'vue-property-decorator';
+import {TagHelper} from '@/mixins/TagHelper';
 
 @Component({
  computed:{
@@ -20,7 +22,7 @@ import {Component, Vue} from 'vue-property-decorator';
    }
  }
 })
-export default class Tags extends Vue{
+export default class Tags extends mixins(TagHelper){
   //tags = store.tagList
   // @Prop({required:true}) readonly dataSource!:string[]//默认所有tags 字符串数组  前面Array是JS写法可以不写 后买你string[]是TS写法,因为是外部数据你不要给它赋值
   created(){ //提前初始化 不然拿不到数据
