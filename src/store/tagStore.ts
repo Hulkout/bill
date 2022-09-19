@@ -56,10 +56,7 @@ const tagStore = { //写一个对象并导出
         this.saveTags()//删除完毕保存一下
         return true
     },
-    findTag (id:string){
-        //filter也返回数组 那他和map区别在哪 ,由于返回一个数组那我直接得到它[0]就是它
-        return  this.tagList.filter(t => t.id === id)[0] //这里不可以用this.tagList 因为箭头函数的this就是window 普通函数this是store
-    }
+
 
 }
 tagStore.fetchTags()

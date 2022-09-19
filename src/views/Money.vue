@@ -31,11 +31,11 @@ import store from '@/store/index';
 // }
 @Component({
   components:{Tags, FormItem, Types, NumberPad},
-  computed:{
-    recordList(){
-      return this.$store.state.recordList
-    }
-  }
+  // computed:{
+  //   recordList(){
+  //     return this.$store.state.recordList
+  //   }
+  // }
 })
 export default class Money extends Vue{
   // tags=['衣','食','住','行']

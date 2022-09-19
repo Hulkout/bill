@@ -20,13 +20,12 @@ import {mixins} from 'vue-class-component';
 // tagListModel.fetch() //先fetch就可以直接用data了
 @Component({
   components: {Button},
-  computed:{
-    tagList(){
-      return this.$store.state.tagList
-    }
-  },
+
 })
 export default class Labels extends mixins(TagHelper){
+  get  tagList(){
+    return this.$store.state.tagList
+  }
   created(){ //提前初始化 不然拿不到数据
     this.$store.commit('fetchTags')
   }

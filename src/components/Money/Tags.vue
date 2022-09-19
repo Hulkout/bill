@@ -15,14 +15,11 @@ import { mixins } from 'vue-class-component';
 import {Component} from 'vue-property-decorator';
 import {TagHelper} from '@/mixins/TagHelper';
 
-@Component({
- computed:{
-   tagList(){
-     return this.$store.state.tagList
-   }
- }
-})
+@Component
 export default class Tags extends mixins(TagHelper){
+  get  tagList(){
+    return this.$store.state.tagList
+  }
   //tags = store.tagList
   // @Prop({required:true}) readonly dataSource!:string[]//默认所有tags 字符串数组  前面Array是JS写法可以不写 后买你string[]是TS写法,因为是外部数据你不要给它赋值
   created(){ //提前初始化 不然拿不到数据
