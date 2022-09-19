@@ -31,10 +31,12 @@ const store =  new Vuex.Store({
 
 
 
-
-
-
-
+    fetchTags(state){ //读取数据
+      state.tagList = JSON.parse(window.localStorage.getItem('tagList')||'[]')
+    },
+    saveTags(state){//保存数据
+      window.localStorage.setItem('tagList',JSON.stringify(state.tagList))
+    },
     createTag(state,name:string){
       const names = state.tagList.map(item=>item.name)
       if (names.indexOf(name)>=0){
@@ -44,7 +46,7 @@ const store =  new Vuex.Store({
       }
       const id = createId().toString()
       state.tagList.push({id:id,name:name})
-      //this.saveTags()
+      store.commit('saveTags')
       window.alert('添加成功')
       return 'success'
     },

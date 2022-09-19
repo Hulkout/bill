@@ -4,7 +4,7 @@
       <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in tags" :key="tag.id" @click="toggle(tag)" :class="{selected:selectedTags.indexOf(tag)>=0}">{{ tag.name }}</li>
+      <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)" :class="{selected:selectedTags.indexOf(tag)>=0}">{{ tag.name }}</li>
     </ul>
   </div>
 </template>
@@ -13,7 +13,6 @@
 
 import {Component, Vue} from 'vue-property-decorator';
 
-import store from '@/store/index';
 @Component({
  computed:{
    tagList(){
@@ -24,6 +23,9 @@ import store from '@/store/index';
 export default class Tags extends Vue{
   //tags = store.tagList
   // @Prop({required:true}) readonly dataSource!:string[]//默认所有tags 字符串数组  前面Array是JS写法可以不写 后买你string[]是TS写法,因为是外部数据你不要给它赋值
+  created(){ //提前初始化 不然拿不到数据
+    this.$store.commit('fetchTags')
+  }
   selectedTags:string[]=[]  //被选中的标签 通过这个改变li的class
   toggle(tag:string){ //toggle开关
     const index = this.selectedTags.indexOf(tag)
@@ -59,6 +61,7 @@ export default class Tags extends Vue{
 
 
   }
+
 }
 </script>
 
