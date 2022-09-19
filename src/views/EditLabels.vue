@@ -6,7 +6,7 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem  field-name="标签名" placeholder="请输入标签名" :value="tag.name" @update:value="updateTag"/>
+      <FormItem field-name="标签名" placeholder="请输入标签名" :value="currentTag.name" @update:value="updateTag"/>
     </div>
     <div class="button-wrapper">
       <Button @click="remove">删除标签</Button>
@@ -25,26 +25,26 @@ import Button from '@/components/Button.vue';
 export default class EditLabels extends Vue{
   // eslint-disable-next-line no-undef
   //tag?: Tag  = undefined //tag初始值和类型写上 当created之后才能拿到tag
-  get tag(){
+  get currentTag(){
     return  this.$store.state.currentTag
   }
   created(){
-    this.$store.commit('fetchTags')//提前拿到初始值
+    this.$store.commit('fetchTags')
     const id = this.$route.params.id //获取id
     this.$store.commit('setCurrentTag',id)
-    if (!this.tag){
+    if (!this.currentTag){
       //如果tag没有那就重新定向到404
       //this.$router.push('/404') push不好用 因为每次返回他都发现不存在就又跳到404卡住了
       this.$router.replace('/404')
     }
   }
   updateTag(name:string){
-    if (this.tag)
-    this.$store.commit('updateTag',{id:this.tag.id,name:name})
+    if (this.currentTag)
+    this.$store.commit('updateTag',{id:this.currentTag.id,name:name})
   }
   remove(){
-    if (this.tag){
-      this.$store.commit('removeTag',this.tag.id)
+    if (this.currentTag){
+      this.$store.commit('removeTag',this.currentTag.id)
       this.$router.back()
     }
 
