@@ -13,10 +13,16 @@
 
 import {Component, Vue} from 'vue-property-decorator';
 
-import store from '@/store/index2';
-@Component
+import store from '@/store/index';
+@Component({
+ computed:{
+   tagList(){
+     return this.$store.state.tagList
+   }
+ }
+})
 export default class Tags extends Vue{
-  tags = store.tagList
+  //tags = store.tagList
   // @Prop({required:true}) readonly dataSource!:string[]//默认所有tags 字符串数组  前面Array是JS写法可以不写 后买你string[]是TS写法,因为是外部数据你不要给它赋值
   selectedTags:string[]=[]  //被选中的标签 通过这个改变li的class
   toggle(tag:string){ //toggle开关
@@ -36,7 +42,7 @@ export default class Tags extends Vue{
   create(){
     const name = window.prompt('请输入标签名')
     if (name){
-      store.createTag(name)
+      this.$store.commit('createTag',name)
     }else {
       window.alert('标签名不能为空')
     }

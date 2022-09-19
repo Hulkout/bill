@@ -17,7 +17,8 @@ import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Vue} from 'vue-property-decorator';
-import store from '@/store/index2';
+// import oldStore from '@/store/index2';
+import store from '@/store/index';
 //在TS中声明类型
 // type RecordItem = {
 //   tag:string
@@ -29,11 +30,16 @@ import store from '@/store/index2';
 //   // JS中类也是构造函数，Object 数据类型中的一类Date createdTime?表示可以不存在
 // }
 @Component({
-  components:{Tags, FormItem, Types, NumberPad}
+  components:{Tags, FormItem, Types, NumberPad},
+  computed:{
+    recordList(){
+      return this.$store.state.recordList
+    }
+  }
 })
 export default class Money extends Vue{
   // tags=['衣','食','住','行']
-  recordList = store.recordList
+ // recordList = oldStore.recordList //好像没啥用了
   record:RecordItem = {
     tag:'',
     notes:'',
@@ -51,11 +57,10 @@ export default class Money extends Vue{
   // }
   onUpdateNotes(value:string){
     this.record.notes = value
-    console.log(value)
   }
   saveRecord(){
     // const deepClone:RecordItem = JSON.parse(JSON.stringify(this.record))
-   store.createRecord(this.record)
+   this.$store.commit('createRecord',this.record) //vuex的调用方法
   }
   // @Watch('recordList')
   // onRecordListChange(){
@@ -70,6 +75,9 @@ export default class Money extends Vue{
   //   this.record.amount= parseFloat(value)
   //   console.log(value);
   // }
+  created(){ //提前初始化 不然拿不到数据
+    this.$store.commit('fetchRecords')
+  }
 }
 </script>
 
