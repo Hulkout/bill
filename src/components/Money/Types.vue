@@ -1,8 +1,9 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="value==='-'&&'selected'" @click="selectType('-')">支出</li>
-      <li :class="value==='+'&&'selected'" @click="selectType('+')">收入</li>
+      <li :class="{selected:value==='-',[classPrefix+'-item']:classPrefix}"  @click="selectType('-')">支出</li>
+      <li :class="{selected:value==='+',[classPrefix+'-item']:classPrefix}"  @click="selectType('+')">支出</li>
+<!--      <li :class="value==='+'&&'selected'" @click="selectType('+')">收入</li>-->
     </ul>
   </div>
 </template>
@@ -16,8 +17,8 @@ import { Vue, Component ,Prop} from 'vue-property-decorator'
 //还有好多装饰器 去网上看vue-property-decorator这个库的用法 component这个修饰器也是它用的官方的
 
 export default class Types extends Vue{
-  @Prop() readonly value!:string //不加！会报错 加了就是 你别管我有没有初始值
-
+  @Prop(String) readonly value!:string //不加！会报错 加了就是 你别管我有没有初始值
+  @Prop(String) classPrefix?:string //加个？ 就是雨哦可能是undefined ！表示不可能是
   selectType(type:string){ //接收一个type(+或-) 让data中的type等于这个type  如果不是+ - 报错
    if (type !== '-'&& type !== '+'){
     throw new Error('type is unknown')
