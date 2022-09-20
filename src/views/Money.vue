@@ -3,7 +3,9 @@
 <!--<NumberPad :value="record.amount" @update:value="onUpdateAmount"></NumberPad>-->
   <NumberPad :value.sync="record.amount" @submit="saveRecord"></NumberPad>
 <!--<Types @update:value="onUpdateType" :value="record.type"></Types>  改用下面的-->
-  <Types :value.sync="record.type"></Types>
+<!--  <Types :value.sync="record.type"></Types>-->
+  <Tabs :data-source="recordTypeList"
+        :value.sync="record.type"/>
   <div class="notes">
     <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="请在此输入备注"></FormItem>
   </div>
@@ -19,6 +21,8 @@ import Tags from '@/components/Money/Tags.vue';
 import {Component, Vue} from 'vue-property-decorator';
 // import oldStore from '@/store/index2';
 import store from '@/store/index';
+import Tabs from '@/components/Tabs.vue';
+import recordTypeList from '@/constants/recordTypeList';
 //在TS中声明类型
 // type RecordItem = {
 //   tag:string
@@ -30,7 +34,7 @@ import store from '@/store/index';
 //   // JS中类也是构造函数，Object 数据类型中的一类Date createdTime?表示可以不存在
 // }
 @Component({
-  components:{Tags, FormItem, Types, NumberPad},
+  components:{Tabs, Tags, FormItem, Types, NumberPad},
   // computed:{
   //   recordList(){
   //     return this.$store.state.recordList
@@ -46,6 +50,7 @@ export default class Money extends Vue{
     type:'-',
     amount:0
   }
+  recordTypeList = recordTypeList;
 
 
   //fetch返回值已经强制类型了
