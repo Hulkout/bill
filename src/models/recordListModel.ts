@@ -12,9 +12,9 @@ const recordListModel = { //写一个对象并导出
         window.localStorage.setItem(localStorageKeyName,JSON.stringify(this.data))
     },
     create(record:RecordItem){
-        const deepClone:RecordItem = clone(record)
-        deepClone.createdAT = new Date() //new Date当前时间
-        this.data.push(deepClone)
+        const record2: RecordItem = clone(record);
+        record2.createdAt = new Date().toISOString(); //new Date当前时间
+        this.data.push(record2)
         this.save()//创建后马上save
     }
 }

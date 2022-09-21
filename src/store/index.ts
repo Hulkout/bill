@@ -4,11 +4,7 @@ import clone from '@/lib/clone';
 import createId from '@/lib/createdId';
 
 Vue.use(Vuex)
-type RootState = {
-  recordList:RecordItem[],
-  tagList:Tag[],
-  currentTag?:Tag //加？表示可以是undefined和Tag类型
-}
+
 const store =  new Vuex.Store({
   state: {
     recordList: [] ,
@@ -18,7 +14,7 @@ const store =  new Vuex.Store({
   mutations: {
     createRecord(state,record: RecordItem) {
       const record2: RecordItem = clone(record);
-      record2.createdAT = new Date();
+      record2.createdAt = new Date().toISOString();
       state.recordList.push(record2);
       //saveRecords(); //这里放到store中的调用
       store.commit('saveRecords')

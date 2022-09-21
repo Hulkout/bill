@@ -7,6 +7,18 @@
         <br/>
         interval: {{interval}}
       </div>
+      <div>
+        <ol>
+<!--          key 不知道咋写 用下标吧-->
+          <li v-for="(group,index) in result" :key="index">
+            <h3>{{group.title}}</h3>
+            <ol>
+              <li v-for="item in group.items" :key="item.id">{{item.amount}}
+                {{item.createdAt}}</li>
+            </ol>
+          </li>
+        </ol>
+      </div>
     </Layout>
 </template>
 
@@ -25,6 +37,29 @@ export default class Statistics extends Vue {
   interval = 'day';
   intervalList = intervalList;
   recordTypeList = recordTypeList
+  created(){//记得先fetch
+    this.$store.commit('fetchRecords')
+  }
+  get recordList (){
+    // eslint-disable-next-line no-undef
+    return (this.$store.state as RootState).recordList
+  }
+
+  get result(){ //拿到结果
+    const {recordList} = this
+    //const recordList = this.recordList
+    //做一个桶
+    type HashTableValue = { title: string, items: RecordItem[] }
+    const hashTable :{[key:string]:HashTableValue}= {} //声明一个空对象的类型
+    for(let i = 0;i<recordList.length;i++){
+      const[date,time] = recordList[i].createdAt!.split('T')
+      //放到哈希中
+      hashTable[date] =   hashTable[date]||{title: date, items: []};
+      hashTable[date].items.push(recordList[i])
+
+    }
+    return hashTable
+  }
 }
 </script>
 
