@@ -99,7 +99,7 @@ export default class Statistics extends Vue {
   // eslint-disable-next-line no-undef
   tagString(tag:Tag[]){
     console.log(tag)
-    return tag.length === 0 ? '无' : tag.join(',');
+    return tag.length === 0 ? '无' : tag.map(t=>t.name).join(',');
   }
   //美化title
     beautify(string: string) {
