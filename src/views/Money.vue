@@ -45,7 +45,7 @@ export default class Money extends Vue{
   // tags=['衣','食','住','行']
  // recordList = oldStore.recordList //好像没啥用了
   record:RecordItem = {
-    tag:'',
+    tag:[],
     notes:'',
     type:'-',
     amount:0
@@ -59,7 +59,7 @@ export default class Money extends Vue{
   // recordList:RecordItem[]= recordListModel.fetch()
   //recordList:Record[]=  JSON.parse(window.localStorage.getItem('recordList')||'[]')
 
-  onUpdateTags(value:string){
+  onUpdateTags(value:[]){
     this.record.tag = value
   }
   onUpdateNotes(value:string){

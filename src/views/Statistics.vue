@@ -10,7 +10,6 @@
                 <span>{{tagString(item.tag)}}</span>
                 <span class="notes"> {{item.notes}}</span>
                 <span>￥{{item.amount}} </span>
-
                </li>
             </ol>
           </li>
@@ -97,8 +96,10 @@ export default class Statistics extends Vue {
   //   return result;
   // }
   //设置tag初始值
-  tagString(tag:string){
-    return tag.length === 0 ? '无' : tag;
+  // eslint-disable-next-line no-undef
+  tagString(tag:Tag[]){
+    console.log(tag)
+    return tag.length === 0 ? '无' : tag.join(',');
   }
   //美化title
     beautify(string: string) {

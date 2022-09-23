@@ -4,7 +4,7 @@ type RootState = {
   currentTag?:Tag //加？表示可以是undefined和Tag类型
 }
 type RecordItem = {
-  tag:string
+  tag:Tag[]
   notes:string
   type:string //这两个type不会冲突哦 TS不是傻子
   amount:number
