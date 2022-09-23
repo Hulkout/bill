@@ -9,7 +9,7 @@
   <div class="notes">
     <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="请在此输入备注"></FormItem>
   </div>
-<Tags/>
+<Tags @update:value="onUpdateTags"/>
 </Layout>
 </template>
 
@@ -51,15 +51,17 @@ export default class Money extends Vue{
     amount:0
   }
   recordTypeList = recordTypeList;
-
+  created(){ //提前初始化 不然拿不到数据
+    this.$store.commit('fetchRecords')
+  }
 
   //fetch返回值已经强制类型了
   // recordList:RecordItem[]= recordListModel.fetch()
   //recordList:Record[]=  JSON.parse(window.localStorage.getItem('recordList')||'[]')
 
-  // onUpdateTags(value:string){
-  //   this.record.tag = value
-  // }
+  onUpdateTags(value:string){
+    this.record.tag = value
+  }
   onUpdateNotes(value:string){
     this.record.notes = value
   }
@@ -80,9 +82,7 @@ export default class Money extends Vue{
   //   this.record.amount= parseFloat(value)
   //   console.log(value);
   // }
-  created(){ //提前初始化 不然拿不到数据
-    this.$store.commit('fetchRecords')
-  }
+
 }
 </script>
 

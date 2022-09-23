@@ -24,7 +24,7 @@
 import {Vue,Component,Prop} from 'vue-property-decorator';
 @Component
 export default class NumberPad extends Vue{
-  @Prop() readonly value!:number
+  @Prop(Number) readonly value!:number
   output = this.value.toString()
   // output = '0'  本来这样就可以 但是为了代码的统一性改用.sync 改成上面这个样子其实没必要
   inputContent(event:MouseEvent){
@@ -58,8 +58,8 @@ export default class NumberPad extends Vue{
     this.output = '0'
   }
   ok(){
-    this.$emit('update:value',this.output)
-    this.$emit('submit',this.output)
+    this.$emit('update:value',parseFloat(this.output))
+    this.$emit('submit',parseFloat(this.output))
     this.output = '0'
   }
 
