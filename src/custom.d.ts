@@ -1,5 +1,6 @@
 type RootState = {
   recordList:RecordItem[],
+  createTagError:Error|null,
   tagList:Tag[],
   currentTag?:Tag //加？表示可以是undefined和Tag类型
 }

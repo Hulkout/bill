@@ -12,7 +12,7 @@
 <script lang="ts">
 
 import { mixins } from 'vue-class-component';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import {TagHelper} from '@/mixins/TagHelper';
 
 @Component
@@ -40,13 +40,17 @@ export default class Tags extends mixins(TagHelper){
     }
     this.$emit('update:value',this.selectedTags)
   }
-  create(){
-    const name = window.prompt('请输入标签名')
-    if (name){
-      this.$store.commit('createTag',name)
-    }else {
-      window.alert('标签名不能为空')
-    }
+
+  //这个也不需要了 因为有mixin了
+  // create(){
+  //   const name = window.prompt('请输入标签名')
+  //   if (name){
+  //     this.$store.commit('createTag',name)
+  //     window.alert('添加成功')
+  //   }else {
+  //     window.alert('标签名不能为空')
+  //   }
+
     // if (name === ''){
     //   alert('标签名不能为空')
     // }else { //我要把他放到数据源啊
@@ -59,7 +63,7 @@ export default class Tags extends mixins(TagHelper){
       // this.$emit('update:dataSource',[...this.dataSource,name])
 
 
-  }
+  // }
 
 }
 </script>

@@ -7,9 +7,9 @@
   <Tabs :data-source="recordTypeList"
         :value.sync="record.type"/>
   <div class="notes">
-    <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="请在此输入备注"></FormItem>
+    <FormItem :value="record.notes" @update:value="onUpdateNotes" field-name="备注" placeholder="请在此输入备注"></FormItem>
   </div>
-<Tags @update:value="onUpdateTags"/>
+<Tags  @update:value="onUpdateTags"/>
 </Layout>
 </template>
 
@@ -65,9 +65,18 @@ export default class Money extends Vue{
   onUpdateNotes(value:string){
     this.record.notes = value
   }
-  saveRecord(){
+  saveRecord(){ //保存的时候看它有没有选标签和加金额
+    if (this.record.tag.length === 0 || !this.record.tag){
+      window.alert('请选择标签')
+      return
+    }
+    if (this.record.amount === 0){
+      window.alert('添加金额')
+      return
+    }
     // const deepClone:RecordItem = JSON.parse(JSON.stringify(this.record))
-   this.$store.commit('createRecord',this.record) //vuex的调用方法
+    this.$store.commit('createRecord',this.record) //vuex的调用方法
+    this.record.notes = ''
   }
   // @Watch('recordList')
   // onRecordListChange(){

@@ -8,6 +8,7 @@ Vue.use(Vuex)
 const store =  new Vuex.Store({
   state: {
     recordList: [] ,
+    createTagError:null,
     tagList:[] ,
     currentTag:undefined
   }as RootState,
@@ -18,6 +19,7 @@ const store =  new Vuex.Store({
       state.recordList.push(record2);
       //saveRecords(); //这里放到store中的调用
       store.commit('saveRecords')
+      window.alert('保存成功')
     },
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
@@ -34,6 +36,12 @@ const store =  new Vuex.Store({
 
     fetchTags(state){ //读取数据
       state.tagList = JSON.parse(window.localStorage.getItem('tagList')||'[]')
+      if (!state.tagList||state.tagList.length === 0 ){ //如果没有tag或长度为0
+        store.commit('createTag','衣')
+        store.commit('createTag','食')
+        store.commit('createTag','住')
+        store.commit('createTag','行')
+      }
     },
     saveTags(state){//保存数据
       window.localStorage.setItem('tagList',JSON.stringify(state.tagList))
@@ -48,7 +56,6 @@ const store =  new Vuex.Store({
       const id = createId().toString()
       state.tagList.push({id:id,name:name})
       store.commit('saveTags')
-      window.alert('添加成功')
       return 'success'
     },
     setCurrentTag (state,id:string){

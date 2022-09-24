@@ -2,7 +2,7 @@
     <Layout>
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
 <!--      <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
-        <ol>
+        <ol v-if="groutList.length>0">
           <li v-for="(group,index) in groutList" :key="index" >
             <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
             <ol >
@@ -14,6 +14,9 @@
             </ol>
           </li>
         </ol>
+      <div v-else class="noResult">
+        没有相关记录
+      </div>
     </Layout>
 </template>
 
@@ -26,8 +29,8 @@ import intervalList from '@/constants/intervalList';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs'
 import clone from '@/lib/clone';
-const api = dayjs()
-console.log(api)
+// const api = dayjs()
+// console.log(api)
 @Component({
   components: {Tabs},
 })
@@ -46,10 +49,10 @@ export default class Statistics extends Vue {
 
   get groutList(){ //拿到结果
     const {recordList} = this;
-    if (recordList.length === 0){return [] }
     //它是一个数组 我们首先要对他进行排序,排序依据是时间，但是字符串可以判断大小，但是我们要判断大小等所以用减法 sort可能会改变原数组 所以克隆一下
     //克隆进行了修改  clone的类型可以通过recordList推出来 ，退出来之后sort里的每一项也都可以推出来
     const newList = clone(recordList).filter(r=>r.type===this.type).sort((a,b)=>dayjs(b.createdAt).valueOf()-dayjs(a.createdAt).valueOf())
+    if (newList.length === 0){return [] }//上面进行filter如果没有符合操作的那就是空 所以判断一下是否为空，不然空的时候没办法.createdAt
     type Result = {title:string,total?:number,items:RecordItem[]}[]
     //拿到第一项   需要格式化
     const result:Result = [{title:dayjs(newList[0].createdAt).format('YYYY-MM-DD'),items:[newList[0]]}]
@@ -157,4 +160,9 @@ export default class Statistics extends Vue {
     color: #999999;
     //万一备注很长 要加省略号
   }
+  .noResult{
+    text-align: center;
+    margin-top: 20px;
+  }
+
 </style>
